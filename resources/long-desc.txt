@@ -1,0 +1,9 @@
+For Android developers: 
+
+It is slightly annoying when you develop that your Android phone goes to sleep. Or 
+alternatively that when you charge it the screen stays on because of a development settings. 
+
+This app will keep your screen on during develop by listening to ADB notifications. It starts keeping your phone awake when a ADB "USB 
+debugging connected" notification appears. It will allow your phone sleep again when the notification disappears.
+
+A first release to the store: I helps my development, hopefully it can help yours too.
