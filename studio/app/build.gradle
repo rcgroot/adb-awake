@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     def buildNumber = System.getenv("BUILD_NUMBER") as Integer ?: 1
+    def commitHash = System.getenv("GIT_COMMIT")
     
     compileSdkVersion 25
     buildToolsVersion "$rootProject.buildToolsVersion"
@@ -19,7 +20,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "BUILD_NUMBER", buildNumber as String
-        buildConfigField "String", "GIT_COMMIT", "\"" + System.getenv("GIT_COMMIT") + "\"" as String ?: "\"Unknown\""
+        buildConfigField "String", "GIT_COMMIT", "\"" + commitHash + "\"" as String ?: "\"Unknown\""
+        archivesBaseName = "adb-awake-$versionName"
     }
 
     buildTypes {
