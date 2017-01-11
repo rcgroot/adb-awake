@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   /* *****************************************************************************
+    **    Author: René de Groot
+    ** Copyright: (c) 2017 René de Groot All Rights Reserved.
+    ** ****************************************************************************
+    ** No part of this file may be reproduced
+    ** or transmitted in any form or by any
+    ** means, electronic or mechanical, for the
+    ** purpose, without the express written
+    ** permission of the copyright holder.
+    * *****************************************************************************
+    *
+    *   This file is part of "Stay-awake on adb".
+    *
+    *   "Stay-awake on adb" is free software: you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation, either version 3 of the License, or
+    *   (at your option) any later version.
+    *
+    *   "Stay-awake on adb" is distributed in the hope that it will be useful,
+    *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+    *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    *   GNU General Public License for more details.
+    *
+    *   You should have received a copy of the GNU General Public License
+    *   along with "Stay-awake on adb".  If not, see <http://www.gnu.org/licenses/>.
+    *
+    */
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="nl.renedegroot.android.adbawake.BuildConfig" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="presenter"
+            type="nl.renedegroot.android.adbawake.configuration.Presenter" />
+
+        <variable
+            name="model"
+            type="nl.renedegroot.android.adbawake.configuration.SharedModel" />
+
+
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="nl.renedegroot.android.adbawake.configuration.MainActivity">
+
+        <Button
+            android:id="@+id/button_grant_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:onClick="@{(view) -> presenter.grantPermission(view)}"
+            android:text="@string/grant_permission"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/button_toggle_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:checked="@{model.serviceEnabled}"
+            android:onClick="@{(view) -> presenter.enableService(view)}"
+            android:textOff="@string/button_disabled"
+            android:textOn="@string/button_enabled"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_service_explained"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="8dp"
+            android:text="@string/text_service_explained"
+            app:layout_constraintBottom_toBottomOf="@+id/button_toggle_service"
+            app:layout_constraintLeft_toRightOf="@+id/button_toggle_service"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/button_toggle_service" />
+
+        <ToggleButton
+            android:id="@+id/button_toggle_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:checked="@{model.wakeLocked}"
+            android:onClick="@{(view) -> presenter.enableLock(view)}"
+            android:textOff="@string/button_released"
+            android:textOn="@string/button_acquired"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_toggle_service" />
+
+        <TextView
+            android:id="@+id/text_state_explained"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="8dp"
+            android:text="@string/text_lock_explained"
+            app:layout_constraintBottom_toBottomOf="@+id/button_toggle_lock"
+            app:layout_constraintLeft_toRightOf="@+id/button_toggle_lock"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/button_toggle_lock" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

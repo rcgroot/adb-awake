@@ -1,0 +1,11 @@
+ext {
+    // Building
+    buildToolsVersion = '25.0.2'
+    gradlePluginVersion = '2.2.3'
+    dataBindingVersion = '2.2.3'
+
+    // App support
+    supportLibraryVersion = '25.1.0'
+    kotlinVersion = '1.0.6'
+    constraintsLibraryVersion = '1.0.0-beta4'
+}
