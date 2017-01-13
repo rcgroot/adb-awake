@@ -39,13 +39,19 @@ import nl.renedegroot.android.adbawake.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val presenter = Presenter()
+    private val viewModel = ViewModel()
+    private val presenter = Presenter(viewModel)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.model = SharedModel.instance
+        binding.model = viewModel
         binding.presenter = presenter
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.start(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

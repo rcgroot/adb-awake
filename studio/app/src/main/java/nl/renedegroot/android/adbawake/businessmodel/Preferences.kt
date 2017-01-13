@@ -29,17 +29,17 @@ package nl.renedegroot.android.adbawake.businessmodel
 
 import android.content.Context
 
-class Preferences(val context: Context) {
+class Preferences {
     private val SERVICE_FIELD = "ServiceEnabled"
 
-    fun enableService(enabled: Boolean) {
-        val prefs = sharedPreferences()
+    fun enableService(context: Context, enabled: Boolean) {
+        val prefs = sharedPreferences(context)
         prefs.edit().putBoolean(SERVICE_FIELD, enabled).apply()
     }
 
-    fun isServiceEnabled(): Boolean {
-        return sharedPreferences().getBoolean(SERVICE_FIELD, true)
+    fun isServiceEnabled(context: Context): Boolean {
+        return sharedPreferences(context).getBoolean(SERVICE_FIELD, true)
     }
 
-    private fun sharedPreferences() = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+    private fun sharedPreferences(context: Context) = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 }

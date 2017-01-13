@@ -29,34 +29,39 @@ package nl.renedegroot.android.adbawake.businessmodel
 
 import android.content.Context
 import android.os.PowerManager
-import nl.renedegroot.android.adbawake.configuration.SharedModel
+import nl.renedegroot.android.adbawake.configuration.ViewModel
 
-class LockControl(context: Context) {
+class LockControl {
 
-    val TAG = "adbawake"
+    var isAcquired = false
+    private val TAG = "adbawake"
+    private var dimLock: PowerManager.WakeLock? = null
+    private var wakeLock: PowerManager.WakeLock? = null
 
     companion object {
-        var dimLock: PowerManager.WakeLock? = null
-        var wakeLock: PowerManager.WakeLock? = null
+        val instance = LockControl()
     }
 
-    init {
-        if (wakeLock == null) {
-            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+    fun createLocks(context: Context) {
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        if (dimLock == null) {
             dimLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG)
+        }
+        if (wakeLock == null) {
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG)
         }
     }
 
-    fun enableWakelock(enabled: Boolean) {
-        val model = SharedModel.instance
-        model.wakeLocked.set(enabled)
+    fun enableWakelock(context: Context, enabled: Boolean) {
         if (enabled) {
+            createLocks(context)
             wakeLock?.acquire()
             dimLock?.acquire()
+            isAcquired = true
         } else if (wakeLock?.isHeld ?: false) {
             wakeLock?.release()
             dimLock?.release()
+            isAcquired = false
         }
     }
 }

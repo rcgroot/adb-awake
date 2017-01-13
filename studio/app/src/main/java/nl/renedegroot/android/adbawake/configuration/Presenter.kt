@@ -27,6 +27,7 @@
  */
 package nl.renedegroot.android.adbawake.configuration
 
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentManager
 import android.view.View
@@ -36,21 +37,19 @@ import nl.renedegroot.android.adbawake.businessmodel.LockControl
 import nl.renedegroot.android.adbawake.businessmodel.Preferences
 
 
-class Presenter {
+class Presenter(val model: ViewModel) {
 
-    val ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
+    private val ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
+    private var lockControl: LockControl = LockControl.instance
+    private var preferences: Preferences = Preferences()
 
-    fun grantPermission(view: View) {
-        val context = view.context
-        context.startActivity(Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS))
+    fun start(context: Context) {
+        model.serviceEnabled.set(preferences.isServiceEnabled(context))
+        model.wakeLocked.set(lockControl.isAcquired)
     }
 
-    fun enableLock(view: View) {
-        var isChecked = false
-        if (view is Checkable) {
-            isChecked = view.isChecked
-        }
-        LockControl(view.context).enableWakelock(isChecked)
+    fun grantPermission(view: View) {
+        view.context.startActivity(Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS))
     }
 
     fun enableService(view: View) {
@@ -58,10 +57,16 @@ class Presenter {
         if (view is Checkable) {
             isChecked = view.isChecked
         }
-        SharedModel.instance.serviceEnabled.set(isChecked)
-        Preferences(view.context).enableService(isChecked)
+        preferences.enableService(view.context, isChecked)
     }
 
+    fun enableLock(view: View) {
+        var isChecked = false
+        if (view is Checkable) {
+            isChecked = view.isChecked
+        }
+        lockControl.enableWakelock(view.context, isChecked)
+    }
 
     fun showAboutDialog(fm: FragmentManager) {
         AboutFragment().show(fm, "ABOUT")

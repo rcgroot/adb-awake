@@ -43,7 +43,7 @@
 
         <variable
             name="model"
-            type="nl.renedegroot.android.adbawake.configuration.SharedModel" />
+            type="nl.renedegroot.android.adbawake.configuration.ViewModel" />
 
 
     </data>
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:checked="@{model.serviceEnabled}"
+            android:checked="@={model.serviceEnabled}"
             android:onClick="@{(view) -> presenter.enableService(view)}"
             android:textOff="@string/button_disabled"
             android:textOn="@string/button_enabled"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="8dp"
-            android:checked="@{model.wakeLocked}"
+            android:checked="@={model.wakeLocked}"
             android:onClick="@{(view) -> presenter.enableLock(view)}"
             android:textOff="@string/button_released"
             android:textOn="@string/button_acquired"

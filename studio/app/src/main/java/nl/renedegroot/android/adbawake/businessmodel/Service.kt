@@ -29,22 +29,16 @@ package nl.renedegroot.android.adbawake.businessmodel
 
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import nl.renedegroot.android.adbawake.BuildConfig
-import nl.renedegroot.android.adbawake.configuration.SharedModel
 
 
 class Service : NotificationListenerService() {
 
-    private var lockControl: LockControl? = null
-
-    override fun onCreate() {
-        super.onCreate()
-        lockControl = LockControl(this)
-    }
+    private var lockControl: LockControl = LockControl.instance
+    private var preferences: Preferences = Preferences()
 
     override fun onDestroy() {
         super.onDestroy()
-        lockControl?.enableWakelock(false)
+        lockControl.enableWakelock(this, false)
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
@@ -59,10 +53,10 @@ class Service : NotificationListenerService() {
         if (sbn == null) {
             return
         }
-        val enabled = SharedModel.instance.serviceEnabled.get()
+        val enabled = preferences.isServiceEnabled(this)
         val match = matchesADBNotification(sbn)
         if (enabled && match) {
-            lockControl?.enableWakelock(isAdded)
+            lockControl.enableWakelock(this, isAdded)
         }
     }
 

@@ -25,14 +25,12 @@
  *   along with "Stay-awake on adb".  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package nl.renedegroot.android.adbawake
+package nl.renedegroot.android.adbawake.configuration
 
-import nl.renedegroot.android.adbawake.businessmodel.Preferences
-import nl.renedegroot.android.adbawake.configuration.SharedModel
+import android.databinding.ObservableBoolean
+import android.databinding.ObservableField
 
-class Application : android.app.Application() {
-    override fun onCreate() {
-        super.onCreate()
-        SharedModel.instance.serviceEnabled.set(Preferences(this).isServiceEnabled())
-    }
+class ViewModel {
+    val wakeLocked = ObservableBoolean(false)
+    val serviceEnabled = ObservableBoolean(true)
 }
