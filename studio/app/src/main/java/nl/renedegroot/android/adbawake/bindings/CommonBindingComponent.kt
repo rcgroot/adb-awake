@@ -33,7 +33,6 @@ class CommonBindingComponent : DataBindingComponent {
 
     private val commonBindingAdapters = CommonBindingAdapters()
 
-
     override fun getCommonBindingAdapters(): CommonBindingAdapters {
         return commonBindingAdapters
     }

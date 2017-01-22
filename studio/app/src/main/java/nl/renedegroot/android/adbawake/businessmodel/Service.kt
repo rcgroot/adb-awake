@@ -30,8 +30,8 @@ package nl.renedegroot.android.adbawake.businessmodel
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import nl.renedegroot.android.adbawake.Application
+import nl.renedegroot.android.adbawake.Providers.SystemTextProvider
 import javax.inject.Inject
-
 
 class Service : NotificationListenerService() {
 
@@ -40,6 +40,9 @@ class Service : NotificationListenerService() {
 
     @Inject
     lateinit var preferences: Preferences
+
+    @Inject
+    lateinit var systemTextProvider: SystemTextProvider
 
     override fun onCreate() {
         super.onCreate()
@@ -71,8 +74,10 @@ class Service : NotificationListenerService() {
     }
 
     private fun matchesADBNotification(sbn: StatusBarNotification): Boolean {
+        val systemText = systemTextProvider.getSystemText("adb_active_notification_title")
+
         return when (sbn.notification.tickerText) {
-            "USB debugging connected", "USB-foutopsporing verbonden" -> true
+            systemText, "USB debugging connected", "USB-foutopsporing verbonden" -> true
             else -> false
         }
     }
