@@ -22,8 +22,8 @@ android {
         applicationId "nl.renedegroot.android.adbawake"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode buildNumber
+        versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "BUILD_NUMBER", buildNumber as String
         buildConfigField "String", "GIT_COMMIT", "\"" + commitHash + "\"" as String ?: "\"Unknown\""
