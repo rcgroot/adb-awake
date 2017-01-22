@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$rootProject.gradlePluginVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$rootProject.kotlinVersion"
+        classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:$rootProject.jacocoPluginVersion"
     }
 }
 

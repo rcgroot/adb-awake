@@ -49,8 +49,11 @@ class ConfigurationPresenter(val model: ConfigurationViewModel) : LockControl.On
     @Inject
     lateinit var preferences: Preferences
 
-    fun start(context: Context) {
+    init {
         Application.appComponent.inject(this)
+    }
+
+    fun start(context: Context) {
         lockControl.addListener(this)
         model.serviceEnabled.set(preferences.isServiceEnabled(context))
         model.wakeLocked.set(lockControl.isAcquired)

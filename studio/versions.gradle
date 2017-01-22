@@ -9,4 +9,10 @@ ext {
     kotlinVersion = '1.0.6'
     constraintsLibraryVersion = '1.0.0-beta4'
     daggerVersion = '2.8'
+
+    // Testing
+    jacocoPluginVersion = '0.5.0'
+    jacocoVersion = '0.7.7.201606060606'
+    junitVersion = '4.12'
+    mockitoVersion = '2.6.4'
 }
