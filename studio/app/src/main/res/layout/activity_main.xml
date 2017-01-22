@@ -39,11 +39,11 @@
 
         <variable
             name="presenter"
-            type="nl.renedegroot.android.adbawake.configuration.Presenter" />
+            type="nl.renedegroot.android.adbawake.configuration.ConfigurationPresenter" />
 
         <variable
             name="model"
-            type="nl.renedegroot.android.adbawake.configuration.ViewModel" />
+            type="nl.renedegroot.android.adbawake.configuration.ConfigurationViewModel" />
 
 
     </data>
@@ -53,7 +53,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="nl.renedegroot.android.adbawake.configuration.MainActivity">
+        tools:context="nl.renedegroot.android.adbawake.configuration.ConfigurationActivity">
 
         <Button
             android:id="@+id/button_grant_permission"

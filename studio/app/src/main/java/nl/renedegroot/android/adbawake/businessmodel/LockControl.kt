@@ -29,26 +29,32 @@ package nl.renedegroot.android.adbawake.businessmodel
 
 import android.content.Context
 import android.os.PowerManager
-import nl.renedegroot.android.adbawake.configuration.ViewModel
+import nl.renedegroot.android.adbawake.Application
+import nl.renedegroot.android.adbawake.Providers.PowerManagerProvider
+import javax.inject.Inject
 
 class LockControl {
 
     var isAcquired = false
-    private val TAG = "adbawake"
+    private val LOCK_TAG = "adbawake"
     private var dimLock: PowerManager.WakeLock? = null
     private var wakeLock: PowerManager.WakeLock? = null
+    private val listeners = mutableSetOf<OnLockChangedListener>()
 
-    companion object {
-        val instance = LockControl()
+    @Inject
+    lateinit var powerManagerProvider: PowerManagerProvider
+
+    init {
+        Application.appComponent.inject(this)
     }
 
     fun createLocks(context: Context) {
-        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        val powerManager = powerManagerProvider.getPowerManager(context)
         if (dimLock == null) {
-            dimLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG)
+            dimLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, LOCK_TAG)
         }
         if (wakeLock == null) {
-            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG)
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOCK_TAG)
         }
     }
 
@@ -63,5 +69,19 @@ class LockControl {
             dimLock?.release()
             isAcquired = false
         }
+        listeners.forEach { it.onLockChanged(this, enabled) }
     }
+
+    fun addListener(listener: OnLockChangedListener) {
+        listeners.add(listener)
+    }
+
+    fun removeListener(listener: OnLockChangedListener) {
+        listeners.remove(listener)
+    }
+
+    interface OnLockChangedListener {
+        fun onLockChanged(control: LockControl, newValue: Boolean)
+    }
+
 }

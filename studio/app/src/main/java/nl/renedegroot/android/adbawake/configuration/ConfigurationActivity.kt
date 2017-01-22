@@ -29,18 +29,16 @@ package nl.renedegroot.android.adbawake.configuration
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import nl.renedegroot.android.adbawake.R
 import nl.renedegroot.android.adbawake.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class ConfigurationActivity : AppCompatActivity() {
 
-    private val viewModel = ViewModel()
-    private val presenter = Presenter(viewModel)
+    private val viewModel = ConfigurationViewModel()
+    private val presenter = ConfigurationPresenter(viewModel)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +50,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         presenter.start(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.stop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

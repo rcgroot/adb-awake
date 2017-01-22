@@ -29,12 +29,22 @@ package nl.renedegroot.android.adbawake.businessmodel
 
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import nl.renedegroot.android.adbawake.Application
+import javax.inject.Inject
 
 
 class Service : NotificationListenerService() {
 
-    private var lockControl: LockControl = LockControl.instance
-    private var preferences: Preferences = Preferences()
+    @Inject
+    lateinit var lockControl: LockControl
+
+    @Inject
+    lateinit var preferences: Preferences
+
+    override fun onCreate() {
+        super.onCreate()
+        Application.appComponent.inject(this)
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -28,18 +28,26 @@
 package nl.renedegroot.android.adbawake.businessmodel
 
 import android.content.Context
+import nl.renedegroot.android.adbawake.Application
+import nl.renedegroot.android.adbawake.Providers.SharedPreferencesProvider
+import javax.inject.Inject
 
 class Preferences {
     private val SERVICE_FIELD = "ServiceEnabled"
 
+    @Inject
+    lateinit var sharedPreferencesProvider: SharedPreferencesProvider
+
+    init {
+        Application.appComponent.inject(this)
+    }
+
     fun enableService(context: Context, enabled: Boolean) {
-        val prefs = sharedPreferences(context)
+        val prefs = sharedPreferencesProvider.getSharedPreferences(context)
         prefs.edit().putBoolean(SERVICE_FIELD, enabled).apply()
     }
 
     fun isServiceEnabled(context: Context): Boolean {
-        return sharedPreferences(context).getBoolean(SERVICE_FIELD, true)
+        return sharedPreferencesProvider.getSharedPreferences(context).getBoolean(SERVICE_FIELD, true)
     }
-
-    private fun sharedPreferences(context: Context) = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 }

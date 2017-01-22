@@ -25,36 +25,14 @@
  *   along with "Stay-awake on adb".  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package nl.renedegroot.android.adbawake.about
+package nl.renedegroot.android.adbawake.Providers
 
-import android.app.Dialog
-import android.databinding.DataBindingUtil
-import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AlertDialog
-import nl.renedegroot.android.adbawake.R
-import nl.renedegroot.android.adbawake.bindings.CommonBindingComponent
-import nl.renedegroot.android.adbawake.databinding.FragmentAboutBinding
+import android.content.Context
+import android.os.PowerManager
 
-/**
- * Show a little HTML with licenses and version info
- */
-class AboutFragment : DialogFragment() {
+class PowerManagerProvider {
 
-    val model = AboutViewModel()
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        var binding = DataBindingUtil.inflate<FragmentAboutBinding>(activity.layoutInflater, R.layout.fragment_about, null, false, CommonBindingComponent())
-        binding.model = model
-
-        val builder = AlertDialog.Builder(activity)
-        builder.setView(binding.root)
-        builder.setPositiveButton(android.R.string.ok) { dialog, which -> removeAbout() }
-
-        return builder.create()
-    }
-
-    fun removeAbout() {
-        dismiss()
+    fun getPowerManager(context: Context): PowerManager {
+        return context.getSystemService(Context.POWER_SERVICE) as PowerManager
     }
 }

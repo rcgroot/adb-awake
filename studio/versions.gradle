@@ -8,4 +8,5 @@ ext {
     supportLibraryVersion = '25.1.0'
     kotlinVersion = '1.0.6'
     constraintsLibraryVersion = '1.0.0-beta4'
+    daggerVersion = '2.8'
 }

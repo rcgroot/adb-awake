@@ -25,17 +25,14 @@
  *   along with "Stay-awake on adb".  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package nl.renedegroot.android.adbawake.about
+package nl.renedegroot.android.adbawake.Providers
 
-import android.databinding.DataBindingComponent
+import android.content.Context
+import android.content.SharedPreferences
 
-class CommonBindingComponent : DataBindingComponent {
+class SharedPreferencesProvider {
 
-    private val commonBindingAdapters = CommonBindingAdapters()
-
-
-    override fun getCommonBindingAdapters(): CommonBindingAdapters {
-        return commonBindingAdapters
+    fun getSharedPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences("settings", Context.MODE_PRIVATE)
     }
-
 }

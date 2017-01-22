@@ -32,20 +32,32 @@ import android.content.Intent
 import android.support.v4.app.FragmentManager
 import android.view.View
 import android.widget.Checkable
+import nl.renedegroot.android.adbawake.Application
 import nl.renedegroot.android.adbawake.about.AboutFragment
 import nl.renedegroot.android.adbawake.businessmodel.LockControl
 import nl.renedegroot.android.adbawake.businessmodel.Preferences
+import javax.inject.Inject
 
 
-class Presenter(val model: ViewModel) {
+class ConfigurationPresenter(val model: ConfigurationViewModel) : LockControl.OnLockChangedListener {
 
+    private val DIAGLOG_TAG = "ABOUT"
     private val ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
-    private var lockControl: LockControl = LockControl.instance
-    private var preferences: Preferences = Preferences()
+    @Inject
+    lateinit var lockControl: LockControl
+
+    @Inject
+    lateinit var preferences: Preferences
 
     fun start(context: Context) {
+        Application.appComponent.inject(this)
+        lockControl.addListener(this)
         model.serviceEnabled.set(preferences.isServiceEnabled(context))
         model.wakeLocked.set(lockControl.isAcquired)
+    }
+
+    fun stop() {
+        lockControl.removeListener(this)
     }
 
     fun grantPermission(view: View) {
@@ -69,7 +81,11 @@ class Presenter(val model: ViewModel) {
     }
 
     fun showAboutDialog(fm: FragmentManager) {
-        AboutFragment().show(fm, "ABOUT")
+        AboutFragment().show(fm, DIAGLOG_TAG)
+    }
+
+    override fun onLockChanged(control: LockControl, newValue: Boolean) {
+        model.wakeLocked.set(control.isAcquired)
     }
 }
 

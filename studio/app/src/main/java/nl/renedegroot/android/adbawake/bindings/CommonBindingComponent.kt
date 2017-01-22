@@ -25,12 +25,17 @@
  *   along with "Stay-awake on adb".  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package nl.renedegroot.android.adbawake.configuration
+package nl.renedegroot.android.adbawake.bindings
 
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
+import android.databinding.DataBindingComponent
 
-class ViewModel {
-    val wakeLocked = ObservableBoolean(false)
-    val serviceEnabled = ObservableBoolean(true)
+class CommonBindingComponent : DataBindingComponent {
+
+    private val commonBindingAdapters = CommonBindingAdapters()
+
+
+    override fun getCommonBindingAdapters(): CommonBindingAdapters {
+        return commonBindingAdapters
+    }
+
 }

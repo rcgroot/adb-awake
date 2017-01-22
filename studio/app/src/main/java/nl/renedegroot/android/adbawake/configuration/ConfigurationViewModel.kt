@@ -25,15 +25,11 @@
  *   along with "Stay-awake on adb".  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package nl.renedegroot.android.adbawake.about
+package nl.renedegroot.android.adbawake.configuration
 
-import android.databinding.BindingAdapter
-import android.webkit.WebView
+import android.databinding.ObservableBoolean
 
-open class CommonBindingAdapters {
-    
-    @BindingAdapter("url")
-    fun setUrl(webView: WebView, url: String) {
-        webView.loadUrl(url)
-    }
+class ConfigurationViewModel {
+    val wakeLocked = ObservableBoolean(false)
+    val serviceEnabled = ObservableBoolean(true)
 }
