@@ -1,4 +1,4 @@
-package nl.renedegroot.android.adbawake.Providers
+package nl.renedegroot.android.adbawake.providers
 
 import android.content.res.Resources
 import android.util.Log

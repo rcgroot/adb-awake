@@ -29,7 +29,7 @@ package nl.renedegroot.android.adbawake.businessmodel
 
 import android.content.Context
 import nl.renedegroot.android.adbawake.Application
-import nl.renedegroot.android.adbawake.Providers.SharedPreferencesProvider
+import nl.renedegroot.android.adbawake.providers.SharedPreferencesProvider
 import javax.inject.Inject
 
 class Preferences {

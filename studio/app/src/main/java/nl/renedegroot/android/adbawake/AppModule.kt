@@ -2,9 +2,9 @@ package nl.renedegroot.android.adbawake
 
 import dagger.Module
 import dagger.Provides
-import nl.renedegroot.android.adbawake.Providers.PowerManagerProvider
-import nl.renedegroot.android.adbawake.Providers.SharedPreferencesProvider
-import nl.renedegroot.android.adbawake.Providers.SystemTextProvider
+import nl.renedegroot.android.adbawake.providers.PowerManagerProvider
+import nl.renedegroot.android.adbawake.providers.SharedPreferencesProvider
+import nl.renedegroot.android.adbawake.providers.SystemTextProvider
 import nl.renedegroot.android.adbawake.businessmodel.LockControl
 import nl.renedegroot.android.adbawake.businessmodel.Preferences
 import javax.inject.Singleton

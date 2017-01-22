@@ -30,7 +30,7 @@ package nl.renedegroot.android.adbawake.businessmodel
 import android.content.Context
 import android.os.PowerManager
 import nl.renedegroot.android.adbawake.Application
-import nl.renedegroot.android.adbawake.Providers.PowerManagerProvider
+import nl.renedegroot.android.adbawake.providers.PowerManagerProvider
 import javax.inject.Inject
 
 class LockControl {

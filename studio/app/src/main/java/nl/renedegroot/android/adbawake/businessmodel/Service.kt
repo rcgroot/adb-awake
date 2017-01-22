@@ -30,7 +30,7 @@ package nl.renedegroot.android.adbawake.businessmodel
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import nl.renedegroot.android.adbawake.Application
-import nl.renedegroot.android.adbawake.Providers.SystemTextProvider
+import nl.renedegroot.android.adbawake.providers.SystemTextProvider
 import javax.inject.Inject
 
 class Service : NotificationListenerService() {

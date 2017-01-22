@@ -25,7 +25,7 @@
  *   along with "Stay-awake on adb".  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package nl.renedegroot.android.adbawake.Providers
+package nl.renedegroot.android.adbawake.providers
 
 import android.content.Context
 import android.content.SharedPreferences
